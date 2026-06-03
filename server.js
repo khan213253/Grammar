@@ -186,6 +186,11 @@ const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
 
   try {
+    if (url.pathname === "/health") {
+      res.writeHead(200);
+      res.end("ok");
+      return;
+    }
     if (url.pathname.startsWith("/api/lessons")) {
       await handleApi(req, res, url);
       return;
