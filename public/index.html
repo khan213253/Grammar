@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>English Grammar Learning System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..950&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <span>Gr</span>
+          </div>
+          <div>
+            <strong>Grammar Library</strong>
+            <span>Your private English course</span>
+          </div>
+        </div>
+
+        <button class="primary-action" id="createLessonBtn" type="button">
+          <span>+</span>
+          New Lesson
+        </button>
+
+        <nav class="side-nav" aria-label="Lesson filters">
+          <button class="nav-item active" type="button" data-filter="all">
+            <span>All</span>Lessons
+          </button>
+          <button class="nav-item" type="button" data-filter="recent">
+            <span>New</span>Recently updated
+          </button>
+          <button class="nav-item" type="button" data-filter="uncategorized">
+            <span>Tag</span>Uncategorized
+          </button>
+        </nav>
+
+        <div class="stats-panel">
+          <span>Lessons saved</span>
+          <strong id="lessonCount">0</strong>
+          <small>in your course</small>
+        </div>
+
+        <div class="category-panel">
+          <span>Categories</span>
+          <div class="category-list" id="categoryList"></div>
+        </div>
+      </aside>
+
+      <main class="main-area">
+        <header class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Grammar Workspace</p>
+            <h1>My English Grammar Course</h1>
+            <p class="hero-text">
+              Create lessons, organize examples and review practice questions in
+              one personal study library.
+            </p>
+          </div>
+        </header>
+
+        <section class="dashboard-view view active" id="dashboardView">
+          <div class="tool-row">
+            <label class="search-box">
+              <span>Search library</span>
+              <input
+                id="searchInput"
+                type="search"
+                placeholder="Find by title or category"
+              />
+            </label>
+            <div class="mini-stats">
+              <div>
+                <span>Examples</span>
+                <strong id="exampleCount">0</strong>
+              </div>
+              <div>
+                <span>Questions</span>
+                <strong id="questionCount">0</strong>
+              </div>
+            </div>
+          </div>
+          <div class="section-head">
+            <div>
+              <h2>Lessons</h2>
+              <p>Create, organize, and study your own grammar course.</p>
+            </div>
+          </div>
+          <div class="lesson-grid" id="lessonGrid"></div>
+          <div class="empty-state hidden" id="emptyState">
+            <h2>No lessons yet</h2>
+            <p>
+              Start with one topic like nouns, verbs, articles, or sentence
+              structure.
+            </p>
+            <button class="secondary-action" id="emptyCreateBtn" type="button">
+              Create your first lesson
+            </button>
+          </div>
+        </section>
+
+        <section class="lesson-view view" id="lessonView">
+          <button
+            class="ghost-link back-button"
+            id="backToDashboardBtn"
+            type="button"
+          >
+            Back to all lessons
+          </button>
+          <article class="reader">
+            <div class="reader-head">
+              <div>
+                <span class="category-pill" id="readerCategory"></span>
+                <h2 id="readerTitle"></h2>
+                <p id="readerMeta"></p>
+              </div>
+              <div class="reader-actions">
+                <button
+                  class="secondary-action"
+                  id="editLessonBtn"
+                  type="button"
+                >
+                  Edit
+                </button>
+                <button
+                  class="danger-action"
+                  id="deleteLessonBtn"
+                  type="button"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+            <div class="lesson-content" id="readerContent"></div>
+            <section class="examples-reader">
+              <h3>Examples</h3>
+              <div id="readerExamples"></div>
+            </section>
+            <section class="examples-reader">
+              <h3>Practice Questions</h3>
+              <div id="readerQuestions"></div>
+            </section>
+          </article>
+        </section>
+
+        <section class="editor-view view" id="editorView">
+          <button class="ghost-link" id="cancelEditorBtn" type="button">
+            Back to dashboard
+          </button>
+          <form class="editor-panel" id="lessonForm">
+            <div class="editor-title-row">
+              <div>
+                <p class="eyebrow" id="editorMode">New lesson</p>
+                <h2>Lesson editor</h2>
+              </div>
+              <button class="primary-action save-button" type="submit">
+                Save Lesson
+              </button>
+            </div>
+
+            <div class="form-grid">
+              <label>
+                <span>Title</span>
+                <input
+                  id="titleInput"
+                  type="text"
+                  placeholder="Nouns, verbs, articles..."
+                  required
+                />
+              </label>
+              <label>
+                <span>Category</span>
+                <input
+                  id="categoryInput"
+                  type="text"
+                  placeholder="Parts of speech, tenses..."
+                />
+              </label>
+            </div>
+
+            <div class="rich-editor">
+              <div class="toolbar" aria-label="Editor toolbar">
+                <button
+                  type="button"
+                  data-command="formatBlock"
+                  data-value="h2"
+                >
+                  H2
+                </button>
+                <button
+                  type="button"
+                  data-command="formatBlock"
+                  data-value="h3"
+                >
+                  H3
+                </button>
+                <button type="button" data-command="bold">
+                  <strong>B</strong>
+                </button>
+                <button type="button" data-command="italic"><em>I</em></button>
+                <button type="button" data-command="insertUnorderedList">
+                  List
+                </button>
+                <button type="button" data-command="insertOrderedList">
+                  1. List
+                </button>
+                <button
+                  type="button"
+                  data-command="formatBlock"
+                  data-value="blockquote"
+                >
+                  Quote
+                </button>
+                <button
+                  type="button"
+                  data-command="formatBlock"
+                  data-value="pre"
+                >
+                  Example Block
+                </button>
+                <button type="button" data-command="removeFormat">Clear</button>
+              </div>
+              <div
+                class="content-editor"
+                id="contentEditor"
+                contenteditable="true"
+                aria-label="Lesson content"
+              ></div>
+            </div>
+
+            <div class="examples-editor">
+              <div class="examples-head">
+                <div>
+                  <h3>Structured examples</h3>
+                  <p>
+                    Add sentence examples and explanations for reading mode.
+                  </p>
+                </div>
+                <button
+                  class="secondary-action"
+                  id="addExampleBtn"
+                  type="button"
+                >
+                  Add Example
+                </button>
+              </div>
+              <div id="examplesList"></div>
+            </div>
+
+            <div class="examples-editor">
+              <div class="examples-head">
+                <div>
+                  <h3>Practice questions</h3>
+                  <p>
+                    Add prompts and answers so every lesson becomes studyable.
+                  </p>
+                </div>
+                <button
+                  class="secondary-action"
+                  id="addQuestionBtn"
+                  type="button"
+                >
+                  Add Question
+                </button>
+              </div>
+              <div id="questionsList"></div>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <div class="toast hidden" id="toast"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
