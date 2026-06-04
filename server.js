@@ -79,7 +79,7 @@ function normalizeLesson(input, existing = {}) {
     id: existing.id || crypto.randomUUID(),
     title,
     category: String(input.category || "").trim(),
-    content: String(input.content || "").trim(),
+    content: String(input.content || ""),
     examples,
     questions,
     createdAt: existing.createdAt || now,

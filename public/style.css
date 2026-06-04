@@ -564,6 +564,7 @@ input:focus,
   margin-top: 28px;
   line-height: 1.78;
   font-size: 1.07rem;
+  white-space: pre-wrap;
 }
 
 .lesson-content h2,
@@ -595,6 +596,11 @@ input:focus,
   color: #f7fff8;
   font-family: "Cascadia Code", Consolas, monospace;
   line-height: 1.65;
+  tab-size: 2;
+}
+
+.content-editor pre {
+  margin: 8px 0;
 }
 
 .examples-reader {
@@ -678,6 +684,7 @@ label {
   background: var(--surface);
   line-height: 1.72;
   outline: none;
+  white-space: pre-wrap;
 }
 
 .content-editor:empty::before {

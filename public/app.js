@@ -117,10 +117,10 @@ function textFromHtml(html) {
 }
 
 function sanitizeHtml(html) {
-  const template = document.createElement("template");
-  template.innerHTML = html || "";
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(`<body>${html || ""}</body>`, "text/html");
 
-  template.content.querySelectorAll("*").forEach(node => {
+  doc.body.querySelectorAll("*").forEach(node => {
     if (!allowedTags.has(node.tagName)) {
       node.replaceWith(...node.childNodes);
       return;
@@ -128,7 +128,7 @@ function sanitizeHtml(html) {
     [...node.attributes].forEach(attribute => node.removeAttribute(attribute.name));
   });
 
-  return template.innerHTML.trim();
+  return doc.body.innerHTML;
 }
 
 async function api(path, options = {}) {
