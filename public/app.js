@@ -47,6 +47,7 @@ const allowedTags = new Set([
   "STRONG",
   "EM",
   "P",
+  "DIV",
   "BR",
   "UL",
   "OL",
